@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>提醒</title>
+    <meta name="keywords" content="恶搞,恶搞链接"/>
+    <meta name="description" content="这是一个恶搞用户的链接，当点击“已满18岁”时，会跳转到一个心灵鸡汤的视频~"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .search-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+        /* 通用样式重置 */
+        p {
+            margin: 0;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        /* 覆盖层和视频容器 */
+        .overlay, .scare {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* 覆盖层标题 */
+        p.overlay-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #000;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        /* 覆盖层按钮 */
+        .overlay-button {
+            display: inline-flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 24px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1;
+            border-radius: 4px;
+            margin: 4px;
+            cursor: pointer;
+        }
+
+        .overlay-buttons-wrapper {
+            margin: 24px -8px -8px;
+        }
+
+        #accept-button {
+            background-color: red;
+            color: #fff;
+        }
+
+        #decline-button {
+            color: #000;
+            border: 2px solid #000;
+        }
+
+        /* 覆盖层描述 */
+        p.overlay-description {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, .5);
+            line-height: 1.25;
+            margin-bottom: 16px;
+        }
+
+        /* 链接样式 */
+        a.overlay-link {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: red;
+            line-height: 1;
+            position: relative;
+            margin-top: 16px;
+        }
+
+        a.overlay-link::before {
+            position: absolute;
+            content: "";
+            height: calc(50% + 4px);
+            width: calc(100% + 8px);
+            bottom: -4px;
+            left: -4px;
+            background-color: rgba(132, 94, 194, .1);
+        }
+
+        /* 覆盖层主体 */
+        .overlay-body {
+            max-width: 512px;
+            text-align: center;
+            font-family: Inter, sans-serif;
+        }
+
+        /* 隐藏样式 */
+        .overlay[hidden] {
+            display: none;
+        }
+
+        .overlay {
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, .8);
+        }
+
+        .text-bg {
+            background-color: rgba(255, 255, 255, .6);
+            padding: 24px;
+        }
+
+        .scare {
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        video#video {
+            width: 100%;
+            max-width: 800px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="overlay" class="overlay" style="background-color:white;z-index:999">
+    <div class="text-bg">
+        <div class="overlay-body">
+            <p class="overlay-title">您是否已满18岁</p>
+            <p class="overlay-description">
+                以下内容可能不适合<b>未满18岁</b>的人群观看，我们需要确认您的年龄。
+            </p>
+            <p class="overlay-description">
+                The following may not be suitable for people <b>under the age of 18</b> and we need to confirm your age.
+            </p>
+            <div class="overlay-buttons-wrapper">
+                <div id="accept-button" class="overlay-button">已满18岁</div>
+                <div id="decline-button" class="overlay-button">未满18岁</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scare">
+    <div class="search-container">
+        <input type="text" placeholder="Search...">
+        <button type="submit">Search</button>
+</div>
+<script>
+    const video = document.getElementById('video');
+    const overlay = document.getElementById('overlay');
+    const declineButton = document.getElementById('decline-button');
+    const acceptButton = document.getElementById('accept-button');
+    document.querySelector('button[type="submit"]').addEventListener('click', function() {
+        window.location.href = 'https://www.bilibili.com/video/BV1bZ4y1c75J?t=2.2';
+    });
+
+    function buttonClick1(event) {
+        event.preventDefault();
+        overlay.hidden = true;
+        video.play();
+    }
+
+    function buttonClick2(event) {
+        if (confirm('你未满18岁，是否确定要继续？')) {
+            console.log('用户点击了确定');
+        } else {
+            console.log('用户点击了取消');
+        }
+    }
+
+    acceptButton.addEventListener('click', buttonClick1);
+    declineButton.addEventListener('click', buttonClick2);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 页面加载完成后的逻辑
+    });
+</script>
+</body>
+</html>
